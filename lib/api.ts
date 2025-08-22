@@ -22,3 +22,46 @@ export async function getAllExpressions(): Promise<
     throw error;
   }
 }
+
+export const fallbackExpressions = {
+  swedish: [
+    {
+      id: "1",
+      expression: "Det är ingen ko på isen",
+      pronunciation: "deh air in-gen koo paw ee-sen",
+      meaning: "Used when there's no immediate danger or rush",
+      translation: "There's no cow on the ice",
+      country: "swedish",
+    },
+  ],
+  danish: [
+    {
+      id: "1",
+      expression: "Det är ingen ko på isen",
+      pronunciation: "deh air in-gen koo paw ee-sen",
+      meaning: "Used when there's no immediate danger or rush",
+      translation: "There's no cow on the ice",
+      country: "swedish",
+    },
+  ],
+  norwegian: [
+    {
+      id: "1",
+      expression: "Det är ingen ko på isen",
+      pronunciation: "deh air in-gen koo paw ee-sen",
+      meaning: "Used when there's no immediate danger or rush",
+      translation: "There's no cow on the ice",
+      country: "swedish",
+    },
+  ],
+  finnish: [
+    {
+      id: "1",
+      expression: "Det är ingen ko på isen",
+      pronunciation: "deh air in-gen koo paw ee-sen",
+      meaning: "Used when there's no immediate danger or rush",
+      translation: "There's no cow on the ice",
+      country: "swedish",
+    },
+  ],
+};
