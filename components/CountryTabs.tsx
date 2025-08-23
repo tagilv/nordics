@@ -2,6 +2,7 @@
 
 import { Expression } from "@/lib/api";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -11,7 +12,7 @@ import {
 } from "@/components/ui/card";
 
 import { useState } from "react";
-import { Button } from "./ui/button";
+import { useRouter } from "next/navigation";
 
 const countries = [
   { key: "swedish", name: "swedish", flag: "", color: "bg-blue-500" },
@@ -26,13 +27,18 @@ interface CountryTabsProps {
 
 export function CountryTabs({ expressions }: CountryTabsProps) {
   const [activeTab, setActiveTab] = useState("swedish");
+  const router = useRouter();
 
   return (
     <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-      <TabsList>
+      <TabsList className="grid w-full grid-cols-4 mb-8 h-14 p-1 bg-white/20 backdrop-blur-md border border-white/20">
         {countries.map((country) => (
-          <TabsTrigger key={country.key} value={country.key} className="">
-            <span className={`${country.flag} w-2 h-2 rounded-full`}></span>
+          <TabsTrigger
+            key={country.key}
+            value={country.key}
+            className="flex items-center gap-2 text-sm font-medium text-white/80 data-[state=active]:bg-white/30 data-[state=active]:text-white transition-all duration-200 hover:!bg-white/40 cursor-pointer"
+          >
+            <span className="text-lg">{country.flag}</span>
             {country.name}
           </TabsTrigger>
         ))}
