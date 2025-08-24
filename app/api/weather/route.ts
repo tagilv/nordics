@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 interface WeatherData {
   temperature: number;
@@ -21,7 +21,14 @@ interface AccuWeatherCurrent {
   WeatherIcon: number;
 }
 
-async function fetchWeatherData(): Promise<WeatherData | null> {
+const cityMapping: Record<string, string> = {
+  swedish: "Stockholm",
+  danish: "Copenhagen",
+  norwegian: "Oslo",
+  finnish: "Helsinki",
+};
+
+async function fetchWeatherData(city: string): Promise<WeatherData | null> {
   try {
     const apiKey = process.env.ACCUWEATHER_API_KEY;
     if (!apiKey) {
@@ -29,7 +36,7 @@ async function fetchWeatherData(): Promise<WeatherData | null> {
     }
 
     const locationResponse = await fetch(
-      `http://dataservice.accuweather.com/locations/v1/cities/search?apikey=${apiKey}&q=Stockholm&language=en-us`
+      `http://dataservice.accuweather.com/locations/v1/cities/search?apikey=${apiKey}&q=${city}&language=en-us`
     );
 
     if (!locationResponse.ok) {
@@ -81,9 +88,19 @@ function getWeatherIcon(iconCode: number): string {
   return "🌤️"; // Default
 }
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
-    const weatherData = await fetchWeatherData();
+    const { searchParams } = new URL(request.url);
+    const city = searchParams.get("city");
+
+    if (!city) {
+      return NextResponse.json(
+        { error: "City parameter is required" },
+        { status: 400 }
+      );
+    }
+
+    const weatherData = await fetchWeatherData(city);
 
     if (!weatherData) {
       return NextResponse.json(

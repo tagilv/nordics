@@ -12,7 +12,8 @@ import {
 } from "@/components/ui/card";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+
+import { useLanguageStore } from "@/lib/store";
 
 const countries = [
   { key: "swedish", name: "swedish", flag: "", color: "bg-blue-500" },
@@ -37,14 +38,23 @@ interface CountryTabsProps {
 
 export function CountryTabs({ expressions }: CountryTabsProps) {
   const [activeTab, setActiveTab] = useState("swedish");
-  const router = useRouter();
+
   const [isSwedishFlipped, setIsSwedishFlipped] = useState(false);
   const [isDanishFlipped, setIsDanishFlipped] = useState(false);
   const [isNorwegianFlipped, setIsNorwegianFlipped] = useState(false);
   const [isFinnishFlipped, setIsFinnishFlipped] = useState(false);
 
+  const setActiveLanguage = useLanguageStore(
+    (state) => state.setActiveLanguage
+  );
+
+  const handleTabChange = (value: string) => {
+    setActiveTab(value);
+    setActiveLanguage(value); // Update global store
+  };
+
   return (
-    <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+    <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full">
       <TabsList className="grid w-full grid-cols-4 mb-8 h-14 p-1 bg-white/20 backdrop-blur-md border border-white/20">
         {countries.map((country) => (
           <TabsTrigger

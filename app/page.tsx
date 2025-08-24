@@ -6,27 +6,37 @@ import { WeatherWidget } from "@/components/WeatherWidget";
 export default async function Home() {
   const expressions = dailyExpressions;
 
+  const cities = {
+    swedish: "Stockholm",
+    danish: "Copenhagen",
+    norwegian: "Oslo",
+    finnish: "Helsinki",
+  };
+
   let weatherData = null;
   let weatherError = null;
-
   try {
-    const weatherResponse = await fetch(
-      `${
-        process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"
-      }/api/weather`,
-      {
-        next: { revalidate: 3600 },
+    const weatherPromises = Object.entries(cities).map(async ([lang, city]) => {
+      const response = await fetch(
+        `${
+          process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"
+        }/api/weather?city=${city}`,
+        {
+          next: { revalidate: 10000000 },
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        return [lang, data];
       }
-    );
+      return [lang, null];
+    });
 
-    if (!weatherResponse.ok) {
-      throw new Error("Failed to fetch weather data");
-    }
-
-    weatherData = await weatherResponse.json();
+    const results = await Promise.all(weatherPromises);
+    weatherData = Object.fromEntries(results);
   } catch (error) {
-    weatherError = error instanceof Error ? error.message : "unknown error";
-    console.error("Error fetching weather data:", error);
+    weatherError = "Weather service unavailable";
   }
 
   const todayDate = new Date().toLocaleDateString("en-US", {
@@ -66,8 +76,8 @@ export default async function Home() {
         <div className="relative mb-12 max-w-5xl mx-auto">
           <div className="absolute top-0 right-0 z-20">
             <WeatherWidget
-              weatherData={weatherData}
               weatherError={weatherError}
+              allWeatherData={weatherData}
             />
           </div>
 
