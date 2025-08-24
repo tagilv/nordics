@@ -1,13 +1,59 @@
-import Image from "next/image";
 import { CountryTabs } from "@/components/CountryTabs";
-import { fallbackExpressions } from "@/lib/api";
+import { dailyExpressions } from "@/lib/api";
+import { Badge } from "@/components/ui/badge";
 
 export default function Home() {
-  const expressions = fallbackExpressions;
+  const expressions = dailyExpressions;
+
+  const todayDate = new Date().toLocaleDateString("en-US", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
+  function NordicBackground() {
+    return (
+      <div className="absolute inset-0 z-0 nordic-landscape">
+        <div className="absolute inset-0 bg-gradient-to-b from-indigo-900 via-blue-800 to-slate-900"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-purple-800/40 via-transparent to-teal-700/40"></div>
+
+        <div className="absolute inset-0 opacity-60">
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-emerald-400/30 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute top-1/4 right-1/4 w-80 h-80 bg-blue-400/40 rounded-full blur-3xl animate-pulse delay-1000"></div>
+          <div className="absolute top-1/2 left-1/3 w-72 h-72 bg-purple-400/35 rounded-full blur-3xl animate-pulse delay-2000"></div>
+          <div className="absolute top-1/3 right-1/3 w-64 h-64 bg-teal-400/30 rounded-full blur-3xl animate-pulse delay-3000"></div>
+        </div>
+
+        <div className="absolute inset-0 opacity-40">
+          <div className="absolute top-1/4 left-0 w-full h-32 bg-gradient-to-r from-transparent via-emerald-400/20 to-transparent transform -skew-y-3 animate-pulse delay-500"></div>
+          <div className="absolute top-1/2 left-0 w-full h-24 bg-gradient-to-r from-transparent via-blue-400/15 to-transparent transform skew-y-2 animate-pulse delay-1500"></div>
+        </div>
+
+        <div className="absolute inset-0 bg-black/10"></div>
+      </div>
+    );
+  }
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900">
-      <main>
-        <div className="min-h-screen p-8">
+    <div className="min-h-screen relative overflow-hidden">
+      <NordicBackground />
+      <main className="relative z-10 container mx-auto px-6 py-12 pt-20">
+        <div className="text-center mb-12 max-w-5xl mx-auto">
+          <h1 className="text-5xl font-black text-white mb-3 tracking-tight drop-shadow-lg">
+            Nordic Expressions
+          </h1>
+          <p className="text-xl text-white/90 mb-6 font-light drop-shadow-md">
+            Discover daily wisdom from the North
+          </p>
+          <Badge
+            variant="outline"
+            className="text-sm px-4 py-2 border-white/30 text-white bg-white/10 backdrop-blur-sm"
+          >
+            {todayDate}
+          </Badge>
+        </div>
+        <div className="max-w-5xl mx-auto">
           <CountryTabs expressions={expressions} />
         </div>
       </main>
