@@ -14,14 +14,13 @@ import {
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-import Link from "next/link";
-
 const countries = [
   { key: "swedish", name: "swedish", flag: "", color: "bg-blue-500" },
   { key: "danish", name: "danish", flag: "", color: "bg-red-500" },
   { key: "norwegian", name: "norwegian", flag: "", color: "bg-green-500" },
   { key: "finnish", name: "finnish", flag: "", color: "bg-yellow-500" },
 ];
+
 interface CountryTabsProps {
   expressions: Record<
     string,
@@ -39,7 +38,6 @@ interface CountryTabsProps {
 export function CountryTabs({ expressions }: CountryTabsProps) {
   const [activeTab, setActiveTab] = useState("swedish");
   const router = useRouter();
-  // ADDED: Flip state for all country cards
   const [isSwedishFlipped, setIsSwedishFlipped] = useState(false);
   const [isDanishFlipped, setIsDanishFlipped] = useState(false);
   const [isNorwegianFlipped, setIsNorwegianFlipped] = useState(false);
@@ -78,7 +76,7 @@ export function CountryTabs({ expressions }: CountryTabsProps) {
                   <div className="flex items-center justify-center gap-4 mb-4">
                     <span className="text-4xl">{country.flag}</span>
                     <CardTitle className="text-3xl font-bold text-white drop-shadow-md">
-                      Today's {country.name} Expression
+                      Today&apos;s {country.name} Expression
                     </CardTitle>
                   </div>
                   <CardDescription className="text-lg text-white/80 drop-shadow-sm">
@@ -92,7 +90,7 @@ export function CountryTabs({ expressions }: CountryTabsProps) {
                     <>
                       <div className="text-center p-8 bg-white/10 rounded-xl border border-white/20 backdrop-blur-sm">
                         <p className="text-4xl font-bold text-white mb-6 leading-relaxed drop-shadow-md">
-                          "{expressions[country.key][0].expression}"
+                          &quot;{expressions[country.key][0].expression}&quot;
                         </p>
                         {expressions[country.key][0].pronunciation && (
                           <p className="text-base text-white/70 italic font-light drop-shadow-sm">
@@ -182,16 +180,16 @@ export function CountryTabs({ expressions }: CountryTabsProps) {
                         </h3>
                         <ul className="text-white/80 space-y-2 text-sm text-left">
                           <li>
-                            • <strong>"Lagom"</strong> - unique word meaning
-                            "just the right amount"
+                            • <strong>&quot;Lagom&quot;</strong> - unique word
+                            meaning &quot;just the right amount&quot;
                           </li>
                           <li>
                             • <strong>Melodic intonation</strong> - sounds like
                             singing with pitch accents
                           </li>
                           <li>
-                            • <strong>Compound words</strong> - "sjukhus" = sick
-                            + house = hospital
+                            • <strong>Compound words</strong> -
+                            &quot;sjukhus&quot; = sick + house = hospital
                           </li>
                         </ul>
                       </div>
@@ -225,16 +223,16 @@ export function CountryTabs({ expressions }: CountryTabsProps) {
                         </h3>
                         <ul className="text-white/80 space-y-2 text-sm text-left">
                           <li>
-                            • <strong>"Hygge"</strong> - famous concept of cozy
-                            contentment
+                            • <strong>&quot;Hygge&quot;</strong> - famous
+                            concept of cozy contentment
                           </li>
                           <li>
                             • <strong>Soft pronunciation</strong> - they
-                            "swallow" many consonants
+                            &quot;swallow&quot; many consonants
                           </li>
                           <li>
-                            • <strong>"Stød"</strong> - unique glottal stop
-                            (sounds like clearing throat)
+                            • <strong>&quot;Stød&quot;</strong> - unique glottal
+                            stop (sounds like clearing throat)
                           </li>
                         </ul>
                       </div>
@@ -243,7 +241,7 @@ export function CountryTabs({ expressions }: CountryTabsProps) {
                         <h3 className="text-lg font-semibold text-white mb-3">
                           ⏱️ Learning Time:
                         </h3>
-                        <ul className="text-white/80 space-y-1 text-sm text-left">
+                        <ul className="text-xs text-white/80 space-y-1 text-sm text-left">
                           <li>
                             • <strong>Basic fluency:</strong> 8-10 months (daily
                             study)
@@ -276,8 +274,8 @@ export function CountryTabs({ expressions }: CountryTabsProps) {
                             letters are pronounced
                           </li>
                           <li>
-                            • <strong>"Koselig"</strong> - similar to Danish
-                            "hygge" but Norwegian style
+                            • <strong>&quot;Koselig&quot;</strong> - similar to
+                            Danish &quot;hygge&quot; but Norwegian style
                           </li>
                         </ul>
                       </div>
@@ -316,15 +314,15 @@ export function CountryTabs({ expressions }: CountryTabsProps) {
                           </li>
                           <li>
                             • <strong>Vowel harmony</strong> - vowels must
-                            "agree" with each other
+                            &quot;agree&quot; with each other
                           </li>
                           <li>
-                            • <strong>"Sisu"</strong> - concept of determination
-                            and resilience
+                            • <strong>&quot;Sisu&quot;</strong> - concept of
+                            determination and resilience
                           </li>
                           <li>
                             • <strong>Longest word:</strong>{" "}
-                            "lentokonesuihkuturbiinimoottoriapumekaanikkoaliupseerioppilas"
+                            &quot;lentokonesuihkuturbiinimoottoriapumekaanikkoaliupseerioppilas&quot;
                           </li>
                         </ul>
                       </div>
@@ -342,8 +340,8 @@ export function CountryTabs({ expressions }: CountryTabsProps) {
                             • <strong>Full fluency:</strong> 4-6 years
                           </li>
                           <li>
-                            • <strong>Most challenging</strong> - different
-                            language family (Uralic)
+                            • <strong>&quot;Most challenging&quot;</strong> -
+                            different language family (Uralic)
                           </li>
                         </ul>
                       </div>

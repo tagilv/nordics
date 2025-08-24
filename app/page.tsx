@@ -3,8 +3,31 @@ import { dailyExpressions } from "@/lib/api";
 import { Badge } from "@/components/ui/badge";
 import { WeatherWidget } from "@/components/WeatherWidget";
 
-export default function Home() {
+export default async function Home() {
   const expressions = dailyExpressions;
+
+  let weatherData = null;
+  let weatherError = null;
+
+  try {
+    const weatherResponse = await fetch(
+      `${
+        process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"
+      }/api/weather`,
+      {
+        next: { revalidate: 3600 },
+      }
+    );
+
+    if (!weatherResponse.ok) {
+      throw new Error("Failed to fetch weather data");
+    }
+
+    weatherData = await weatherResponse.json();
+  } catch (error) {
+    weatherError = error instanceof Error ? error.message : "unknown error";
+    console.error("Error fetching weather data:", error);
+  }
 
   const todayDate = new Date().toLocaleDateString("en-US", {
     weekday: "long",
@@ -42,7 +65,10 @@ export default function Home() {
       <main className="relative z-10 container mx-auto px-6 py-12 pt-20">
         <div className="relative mb-12 max-w-5xl mx-auto">
           <div className="absolute top-0 right-0 z-20">
-            <WeatherWidget />
+            <WeatherWidget
+              weatherData={weatherData}
+              weatherError={weatherError}
+            />
           </div>
 
           <div className="text-center">

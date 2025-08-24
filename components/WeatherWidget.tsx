@@ -9,15 +9,16 @@ interface WeatherData {
   icon: string;
 }
 
-export function WeatherWidget() {
-  const [currentTime, setCurrentTime] = useState(new Date());
+interface WeatherWidgetProps {
+  weatherData: WeatherData | null;
+  weatherError: string | null;
+}
 
-  // Mock weather data
-  const mockWeather: WeatherData = {
-    temperature: 18,
-    description: "Partly Cloudy",
-    icon: "⛅",
-  };
+export function WeatherWidget({
+  weatherData,
+  weatherError,
+}: WeatherWidgetProps) {
+  const [currentTime, setCurrentTime] = useState(new Date());
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -33,11 +34,31 @@ export function WeatherWidget() {
     hour12: true,
   });
 
-  const dateString = currentTime.toLocaleDateString("en-US", {
-    weekday: "short",
-    month: "short",
-    day: "numeric",
-  });
+  if (weatherError) {
+    return (
+      <Card className="w-24 md:w-32 bg-white/10 backdrop-blur-md border border-white/20 shadow-lg hover:bg-white/15 transition-all duration-200">
+        <CardContent className="p-2 text-center">
+          <div className="text-lg font-bold text-white mb-1 font-mono tracking-wider">
+            {timeString}
+          </div>
+          <div className="text-xs text-white/70">Weather unavailable</div>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  if (!weatherData) {
+    return (
+      <Card className="w-24 md:w-32 bg-white/10 backdrop-blur-md border border-white/20 shadow-lg hover:bg-white/15 transition-all duration-200">
+        <CardContent className="p-2 text-center">
+          <div className="text-lg font-bold text-white mb-1 font-mono tracking-wider">
+            {timeString}
+          </div>
+          <div className="text-xs text-white/70">Loading...</div>
+        </CardContent>
+      </Card>
+    );
+  }
 
   return (
     <Card className="w-24 md:w-32 bg-white/10 backdrop-blur-md border border-white/20 shadow-lg hover:bg-white/15 transition-all duration-200">
@@ -46,10 +67,13 @@ export function WeatherWidget() {
           {timeString}
         </div>
         <div className="flex items-center justify-center gap-1">
-          <span className="text-sm">{mockWeather.icon}</span>
-          <span className="text-xs text-white/80 font-medium">{mockWeather.temperature}°C</span>
+          <span className="text-sm">{weatherData.icon}</span>
+          <span className="text-xs text-white/80 font-medium">
+            {weatherData.temperature}°C
+          </span>
         </div>
-        <div className="text-xs text-white/70">{mockWeather.description}</div>
+        <div className="text-xs text-white/70">{weatherData.description}</div>
       </CardContent>
     </Card>
   );
+}
