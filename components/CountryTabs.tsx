@@ -44,9 +44,7 @@ export function CountryTabs({ expressions }: CountryTabsProps) {
   const [isNorwegianFlipped, setIsNorwegianFlipped] = useState(false);
   const [isFinnishFlipped, setIsFinnishFlipped] = useState(false);
 
-  const setActiveLanguage = useLanguageStore(
-    (state) => state.setActiveLanguage
-  );
+  const setActiveLanguage = useLanguageStore.getState().setActiveLanguage;
 
   const handleTabChange = (value: string) => {
     setActiveTab(value);
