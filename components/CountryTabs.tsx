@@ -16,10 +16,10 @@ import { useState } from "react";
 import { useLanguageStore } from "@/lib/store";
 
 const countries = [
-  { key: "swedish", name: "swedish", flag: "", color: "bg-blue-500" },
-  { key: "danish", name: "danish", flag: "", color: "bg-red-500" },
-  { key: "norwegian", name: "norwegian", flag: "", color: "bg-green-500" },
-  { key: "finnish", name: "finnish", flag: "", color: "bg-yellow-500" },
+  { key: "swedish", name: "Swedish", flag: "", color: "bg-blue-500" },
+  { key: "danish", name: "Danish", flag: "", color: "bg-red-500" },
+  { key: "norwegian", name: "Norwegian", flag: "", color: "bg-green-500" },
+  { key: "finnish", name: "Finnish", flag: "", color: "bg-yellow-500" },
 ];
 
 interface CountryTabsProps {
@@ -48,7 +48,7 @@ export function CountryTabs({ expressions }: CountryTabsProps) {
 
   const handleTabChange = (value: string) => {
     setActiveTab(value);
-    setActiveLanguage(value); // Update global store
+    setActiveLanguage(value);
   };
 
   return (
@@ -79,25 +79,29 @@ export function CountryTabs({ expressions }: CountryTabsProps) {
                   : "opacity-100"
               }`}
             >
-              <Card className="shadow-2xl border-0 bg-white/10 backdrop-blur-md border border-white/20 min-h-[800px]">
-                <CardHeader className="text-center pb-8">
-                  <div className="flex items-center justify-center gap-4 mb-4">
+              <Card
+                className="shadow-2xl border-0 bg-white/10 backdrop-blur-md border border-white/20 min-h-[400px] md:min-h-[600px] cursor-pointer hover:bg-white/15 transition-all duration-200 pt-0 pb-6 md:py-6"
+                onClick={() => {
+                  if (country.key === "swedish") setIsSwedishFlipped(true);
+                  if (country.key === "danish") setIsDanishFlipped(true);
+                  if (country.key === "norwegian") setIsNorwegianFlipped(true);
+                  if (country.key === "finnish") setIsFinnishFlipped(true);
+                }}
+              >
+                <CardHeader className="text-center pb-2 md:pb-8">
+                  <div className="flex items-center justify-center gap-4 mb-4 hidden md:flex">
                     <span className="text-4xl">{country.flag}</span>
-                    <CardTitle className="text-3xl font-bold text-white drop-shadow-md">
+                    <CardTitle className="text-2xl md:text-3xl font-bold text-white drop-shadow-md">
                       Today&apos;s {country.name} Expression
                     </CardTitle>
                   </div>
-                  <CardDescription className="text-lg text-white/80 drop-shadow-sm">
-                    Learn something beautiful from {country.name.toLowerCase()}{" "}
-                    culture
-                  </CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-8">
+                <CardContent className="space-y-4 md:space-y-6 pb-8">
                   {expressions[country.key] &&
                   expressions[country.key].length > 0 ? (
                     <>
-                      <div className="text-center p-8 bg-white/10 rounded-xl border border-white/20 backdrop-blur-sm">
-                        <p className="text-4xl font-bold text-white mb-6 leading-relaxed drop-shadow-md">
+                      <div className="text-center p-4 md:p-8 bg-white/10 rounded-xl border border-white/20 backdrop-blur-sm">
+                        <p className="text-2xl md:text-4xl font-bold text-white mb-6 leading-relaxed drop-shadow-md">
                           &quot;{expressions[country.key][0].expression}&quot;
                         </p>
                         {expressions[country.key][0].pronunciation && (
@@ -109,7 +113,7 @@ export function CountryTabs({ expressions }: CountryTabsProps) {
                       </div>
 
                       <div className="text-center p-6 bg-white/5 rounded-xl border border-white/10 backdrop-blur-sm">
-                        <p className="text-lg text-white/80 font-light drop-shadow-sm leading-relaxed">
+                        <p className="text-base md:text-lg text-white/80 font-light drop-shadow-sm leading-relaxed">
                           <span className="font-semibold text-white">
                             Meaning:
                           </span>{" "}
@@ -125,25 +129,6 @@ export function CountryTabs({ expressions }: CountryTabsProps) {
                       </div>
                       <div className="text-center text-base text-white/70 font-light drop-shadow-sm">
                         <p>Return tomorrow for another Nordic treasure ✨</p>
-                      </div>
-
-                      <div className="text-center pt-4 border-t border-white/20">
-                        <Button
-                          variant="outline"
-                          className="bg-white/10 border-white/30 text-white hover:bg-white/20 backdrop-blur-sm transition-all duration-200"
-                          onClick={() => {
-                            if (country.key === "swedish")
-                              setIsSwedishFlipped(true);
-                            if (country.key === "danish")
-                              setIsDanishFlipped(true);
-                            if (country.key === "norwegian")
-                              setIsNorwegianFlipped(true);
-                            if (country.key === "finnish")
-                              setIsFinnishFlipped(true);
-                          }}
-                        >
-                          Learn More About {country.name} 🏛️
-                        </Button>
                       </div>
                     </>
                   ) : (
@@ -167,22 +152,27 @@ export function CountryTabs({ expressions }: CountryTabsProps) {
                   : "opacity-0 pointer-events-none absolute inset-0"
               }`}
             >
-              <Card className="shadow-2xl border-0 bg-white/10 backdrop-blur-md border border-white/20 min-h-[800px]">
-                <CardHeader className="text-center pb-8">
-                  <div className="flex items-center justify-center gap-4 mb-4">
+              <Card
+                className="shadow-2xl border-0 bg-white/10 backdrop-blur-md border border-white/20 min-h-[400px] md:min-h-[600px] cursor-pointer hover:bg-white/15 transition-all duration-200 pt-0 pb-6 md:py-6"
+                onClick={() => {
+                  if (country.key === "swedish") setIsSwedishFlipped(false);
+                  if (country.key === "danish") setIsDanishFlipped(false);
+                  if (country.key === "norwegian") setIsNorwegianFlipped(false);
+                  if (country.key === "finnish") setIsFinnishFlipped(false);
+                }}
+              >
+                <CardHeader className="text-center pb-2 md:pb-8">
+                  <div className="flex items-center justify-center gap-4 mb-4 hidden md:flex">
                     <span className="text-4xl">{country.flag}</span>
-                    <CardTitle className="text-3xl font-bold text-white drop-shadow-md">
+                    <CardTitle className="text-2xl md:text-3xl font-bold text-white drop-shadow-md">
                       About {country.name} Language
                     </CardTitle>
                   </div>
-                  <CardDescription className="text-lg text-white/80 drop-shadow-sm">
-                    Discover fascinating facts and learning insights
-                  </CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-6">
+                <CardContent className="space-y-4 md:space-y-6">
                   {country.key === "swedish" && (
                     <>
-                      <div className="bg-white/15 rounded-lg p-6">
+                      <div className="bg-white/15 rounded-lg pt-2 pb-6 px-6 md:p-6">
                         <h3 className="text-lg font-semibold text-white mb-3">
                           🎯 Fun Facts:
                         </h3>
@@ -225,7 +215,7 @@ export function CountryTabs({ expressions }: CountryTabsProps) {
 
                   {country.key === "danish" && (
                     <>
-                      <div className="bg-white/15 rounded-lg p-6">
+                      <div className="bg-white/15 rounded-lg pt-2 pb-6 px-6 md:p-6">
                         <h3 className="text-lg font-semibold text-white mb-3">
                           🎯 Fun Facts:
                         </h3>
@@ -249,7 +239,7 @@ export function CountryTabs({ expressions }: CountryTabsProps) {
                         <h3 className="text-lg font-semibold text-white mb-3">
                           ⏱️ Learning Time:
                         </h3>
-                        <ul className="text-xs text-white/80 space-y-1 text-sm text-left">
+                        <ul className="text-white/80 space-y-1 text-sm text-left">
                           <li>
                             • <strong>Basic fluency:</strong> 8-10 months (daily
                             study)
@@ -268,7 +258,7 @@ export function CountryTabs({ expressions }: CountryTabsProps) {
 
                   {country.key === "norwegian" && (
                     <>
-                      <div className="bg-white/15 rounded-lg p-6">
+                      <div className="bg-white/15 rounded-lg pt-2 pb-6 px-6 md:p-6">
                         <h3 className="text-lg font-semibold text-white mb-3">
                           🎯 Fun Facts:
                         </h3>
@@ -311,7 +301,7 @@ export function CountryTabs({ expressions }: CountryTabsProps) {
 
                   {country.key === "finnish" && (
                     <>
-                      <div className="bg-white/15 rounded-lg p-6">
+                      <div className="bg-white/15 rounded-lg pt-2 pb-6 px-6 md:p-6">
                         <h3 className="text-lg font-semibold text-white mb-3">
                           🎯 Fun Facts:
                         </h3>
@@ -323,10 +313,6 @@ export function CountryTabs({ expressions }: CountryTabsProps) {
                           <li>
                             • <strong>Vowel harmony</strong> - vowels must
                             &quot;agree&quot; with each other
-                          </li>
-                          <li>
-                            • <strong>&quot;Sisu&quot;</strong> - concept of
-                            determination and resilience
                           </li>
                           <li>
                             • <strong>Longest word:</strong>{" "}
@@ -355,24 +341,6 @@ export function CountryTabs({ expressions }: CountryTabsProps) {
                       </div>
                     </>
                   )}
-
-                  <div className="text-center pt-4 border-t border-white/20">
-                    <Button
-                      variant="outline"
-                      className="bg-white/10 border-white/30 text-white hover:bg-white/20 backdrop-blur-sm transition-all duration-200"
-                      onClick={() => {
-                        if (country.key === "swedish")
-                          setIsSwedishFlipped(false);
-                        if (country.key === "danish") setIsDanishFlipped(false);
-                        if (country.key === "norwegian")
-                          setIsNorwegianFlipped(false);
-                        if (country.key === "finnish")
-                          setIsFinnishFlipped(false);
-                      }}
-                    >
-                      ← Back to Expression
-                    </Button>
-                  </div>
                 </CardContent>
               </Card>
             </div>
