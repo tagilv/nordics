@@ -74,14 +74,15 @@ export default async function Home() {
       <NordicBackground />
       <main className="relative z-10 container mx-auto px-6 py-12 pt-20">
         <div className="relative mb-12 max-w-5xl mx-auto">
-          <div className="absolute top-0 right-0 z-20">
+          <div className="absolute -top-4 right-0 z-20 md:top-0">
+            {" "}
             <WeatherWidget
               weatherError={weatherError}
               allWeatherData={weatherData}
             />
           </div>
 
-          <div className="text-center">
+          <div className="text-center pt-2">
             <h1 className="text-5xl font-black text-white mb-3 tracking-tight drop-shadow-lg">
               Nordic Expressions
             </h1>
