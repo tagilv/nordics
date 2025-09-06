@@ -1,19 +1,12 @@
 "use client";
 
-import { Expression } from "@/lib/api";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 import { useState } from "react";
 
 import { useLanguageStore } from "@/lib/store";
+import { Expression } from "@/types";
 
 const countries = [
   { key: "swedish", name: "Swedish", flag: "", color: "bg-blue-500" },
@@ -23,17 +16,7 @@ const countries = [
 ];
 
 interface CountryTabsProps {
-  expressions: Record<
-    string,
-    {
-      id: string;
-      date: string;
-      expression: string;
-      pronunciation: string;
-      meaning: string;
-      translation: string;
-    }[]
-  >;
+  expressions: Record<string, Expression[]>;
 }
 
 export function CountryTabs({ expressions }: CountryTabsProps) {

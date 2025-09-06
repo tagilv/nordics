@@ -1,11 +1,4 @@
-export interface Expression {
-  id: string;
-  expression: string;
-  pronunciation: string;
-  meaning: string;
-  translation: string;
-  country: string;
-}
+import { Expression } from "@/types";
 
 export async function getAllExpressions(): Promise<
   Record<string, Expression[]>
@@ -28,6 +21,7 @@ export const dailyExpressions = {
     {
       id: "1",
       date: "2025-08-23",
+      country: "swedish",
       expression: "Det är ingen ko på isen",
       pronunciation: "deh air in-gen koo paw ee-sen",
       meaning: "Used when there's no immediate danger or rush",
@@ -36,6 +30,7 @@ export const dailyExpressions = {
     {
       id: "2",
       date: "2025-08-24",
+      country: "swedish",
       expression: "Nu har du satt din sista potatis",
       pronunciation: "noo har doo saht din sis-ta po-tah-tis",
       meaning: "Now you've gone too far",
@@ -46,6 +41,7 @@ export const dailyExpressions = {
     {
       id: "3",
       date: "2025-08-23",
+      country: "danish",
       expression: "Der er ugler i mosen",
       pronunciation: "dair air oog-ler ee mo-sen",
       meaning: "Something suspicious is going on",
@@ -54,6 +50,7 @@ export const dailyExpressions = {
     {
       id: "4",
       date: "2025-08-24",
+      country: "danish",
       expression: "At have en pind i øret",
       pronunciation: "aht hah-veh en pin ee ur-eh",
       meaning: "To be stubborn or not listen",
@@ -64,6 +61,7 @@ export const dailyExpressions = {
     {
       id: "5",
       date: "2025-08-23",
+      country: "norwegian",
       expression: "Å ha en finger med i spillet",
       pronunciation: "aw hah en fing-er meh ee spil-eh",
       meaning: "To be involved in something",
@@ -72,6 +70,7 @@ export const dailyExpressions = {
     {
       id: "6",
       date: "2025-08-24",
+      country: "norwegian",
       expression: "Det regner trollkjerringer",
       pronunciation: "deh rig-ner trol-shair-ing-er",
       meaning: "It's raining heavily",
@@ -82,6 +81,7 @@ export const dailyExpressions = {
     {
       id: "7",
       date: "2025-08-23",
+      country: "finnish",
       expression: "Olla kuin perseeseen ammuttu karhu",
       pronunciation: "ol-la koo-in per-say-sen am-mut-tu kar-hu",
       meaning: "To be very angry or irritated",
@@ -90,6 +90,7 @@ export const dailyExpressions = {
     {
       id: "8",
       date: "2025-08-24",
+      country: "finnish",
       expression: "Antaa palaa",
       pronunciation: "an-taa pa-laa",
       meaning: "To go all out, give it your all",

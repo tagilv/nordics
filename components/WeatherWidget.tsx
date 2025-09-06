@@ -1,27 +1,22 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { useLanguageStore } from "@/lib/store";
+import { WeatherData } from "@/types";
 
-interface WeatherData {
-  temperature: number;
-  description: string;
-  icon: string;
-}
-
+// Add this interface:
 interface WeatherWidgetProps {
+  weatherData: Record<string, WeatherData | null> | null;
   weatherError: string | null;
-  allWeatherData?: Record<string, WeatherData | null>;
 }
 
 export function WeatherWidget({
+  weatherData,
   weatherError,
-  allWeatherData,
 }: WeatherWidgetProps) {
   const activeLanguage = useLanguageStore((state) => state.activeLanguage);
 
-  const currentWeather = allWeatherData?.[activeLanguage];
+  const currentWeather = weatherData?.[activeLanguage];
 
   const cityNames = {
     swedish: "Stockholm",
