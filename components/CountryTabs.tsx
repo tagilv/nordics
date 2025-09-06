@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useReducer, useState } from "react";
 import { useLanguageStore } from "@/lib/store";
 import { Expression } from "@/types";
+import { countryInfo } from "@/lib/api";
 
 const countries = [
   { key: "swedish", name: "Swedish", flag: "🇸🇪", color: "bg-blue-500" },
@@ -74,7 +75,7 @@ export function CountryTabs({ expressions }: CountryTabsProps) {
               }`}
             >
               <Card
-                className="shadow-2xl border-0 bg-white/10 backdrop-blur-md border border-white/20 h-[500px] md:h-[600px] cursor-pointer hover:bg-white/15 transition-all duration-200 pt-0 pb-6 md:py-6 flex flex-col"
+                className="shadow-2xl border-0 bg-white/10 backdrop-blur-md border border-white/20 h-[500px] md:min-h-[600px] cursor-pointer hover:bg-white/15 transition-all duration-200 pt-0 pb-6 md:py-6 flex flex-col"
                 onClick={() => handleFlip(country.key)}
               >
                 <CardHeader className="text-center pb-2 md:pb-4">
@@ -85,7 +86,7 @@ export function CountryTabs({ expressions }: CountryTabsProps) {
                     </CardTitle>
                   </div>
                 </CardHeader>
-                <CardContent className="space-y-4 md:space-y-6 pb-8">
+                <CardContent className="space-y-4 md:space-y-6 pb-8 ">
                   {expressions[country.key] &&
                   expressions[country.key].length > 0 ? (
                     <>
@@ -103,16 +104,14 @@ export function CountryTabs({ expressions }: CountryTabsProps) {
 
                       <div className="text-center p-6 bg-white/5 rounded-xl border border-white/10 backdrop-blur-sm">
                         <p className="text-base md:text-lg text-white/80 font-light drop-shadow-sm leading-relaxed">
-                          <span className="font-semibold text-white">
-                            Meaning:
-                          </span>{" "}
+                          <span className="text-white/60 mr-2">=</span>
                           {expressions[country.key][0].meaning}
                         </p>
                       </div>
 
                       <div className="text-center p-6 bg-white/10 rounded-xl backdrop-blur-sm">
                         <p className="text-base md:text-lg text-white font-medium drop-shadow-md">
-                          <span className="font-bold">Translation:</span>{" "}
+                          <span className="text-white/60 mr-2">===</span>
                           {expressions[country.key][0].translation}
                         </p>
                       </div>
@@ -150,178 +149,45 @@ export function CountryTabs({ expressions }: CountryTabsProps) {
                     </CardTitle>
                   </div>
                 </CardHeader>
+
                 <CardContent className="space-y-4 md:space-y-6">
-                  {country.key === "swedish" && (
-                    <>
-                      <div className="bg-white/15 rounded-lg pt-2 pb-6 px-6 md:p-6">
-                        <h3 className="text-lg font-semibold text-white mb-3">
-                          🎯 Fun Facts:
-                        </h3>
-                        <ul className="text-white/80 space-y-2 text-sm text-left">
-                          <li>
-                            • <strong>&quot;Lagom&quot;</strong> - unique word
-                            meaning &quot;just the right amount&quot;
-                          </li>
-                          <li>
-                            • <strong>Melodic intonation</strong> - sounds like
-                            singing with pitch accents
-                          </li>
-                          <li>
-                            • <strong>Compound words</strong> -
-                            &quot;sjukhus&quot; = sick + house = hospital
-                          </li>
-                        </ul>
-                      </div>
+                  <div className="bg-white/15 rounded-lg pt-2 pb-6 px-6 md:p-6">
+                    <h3 className="text-lg font-semibold text-white mb-3">
+                      🎯Fun Facts:
+                    </h3>
+                    <ul className="text-white/80 space-y-2 text-sm text-left">
+                      {countryInfo[
+                        country.key as keyof typeof countryInfo
+                      ].funFacts.map((fact, index) => (
+                        <li key={index}>
+                          •{" "}
+                          <span className="font-semibold text-white">
+                            {fact.split(" - ")[0]}
+                          </span>{" "}
+                          - {fact.split(" - ")[1]}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
 
-                      <div className="bg-white/15 rounded-lg p-6">
-                        <h3 className="text-lg font-semibold text-white mb-3">
-                          ⏱️ Learning Time:
-                        </h3>
-                        <ul className="text-white/80 space-y-1 text-sm text-left">
-                          <li>
-                            • <strong>Basic fluency:</strong> 6-8 months (daily
-                            study)
-                          </li>
-                          <li>
-                            • <strong>Full fluency:</strong> 2-3 years
-                          </li>
-                          <li>
-                            • <strong>Easiest</strong> for English speakers
-                            among Nordic languages
-                          </li>
-                        </ul>
-                      </div>
-                    </>
-                  )}
-
-                  {country.key === "danish" && (
-                    <>
-                      <div className="bg-white/15 rounded-lg pt-2 pb-6 px-6 md:p-6">
-                        <h3 className="text-lg font-semibold text-white mb-3">
-                          🎯 Fun Facts:
-                        </h3>
-                        <ul className="text-white/80 space-y-2 text-sm text-left">
-                          <li>
-                            • <strong>&quot;Hygge&quot;</strong> - famous
-                            concept of cozy contentment
-                          </li>
-                          <li>
-                            • <strong>Soft pronunciation</strong> - they
-                            &quot;swallow&quot; many consonants
-                          </li>
-                          <li>
-                            • <strong>&quot;Stød&quot;</strong> - unique glottal
-                            stop (sounds like clearing throat)
-                          </li>
-                        </ul>
-                      </div>
-
-                      <div className="bg-white/15 rounded-lg p-6">
-                        <h3 className="text-lg font-semibold text-white mb-3">
-                          ⏱️ Learning Time:
-                        </h3>
-                        <ul className="text-white/80 space-y-1 text-sm text-left">
-                          <li>
-                            • <strong>Basic fluency:</strong> 8-10 months (daily
-                            study)
-                          </li>
-                          <li>
-                            • <strong>Full fluency:</strong> 2.5-3.5 years
-                          </li>
-                          <li>
-                            • <strong>Hardest pronunciation</strong> among
-                            Nordic languages
-                          </li>
-                        </ul>
-                      </div>
-                    </>
-                  )}
-
-                  {country.key === "norwegian" && (
-                    <>
-                      <div className="bg-white/15 rounded-lg pt-2 pb-6 px-6 md:p-6">
-                        <h3 className="text-lg font-semibold text-white mb-3">
-                          🎯 Fun Facts:
-                        </h3>
-                        <ul className="text-white/80 space-y-2 text-sm text-left">
-                          <li>
-                            • <strong>Two written standards</strong> - Bokmål
-                            and Nynorsk
-                          </li>
-                          <li>
-                            • <strong>Clear pronunciation</strong> - most
-                            letters are pronounced
-                          </li>
-                          <li>
-                            • <strong>&quot;Koselig&quot;</strong> - similar to
-                            Danish &quot;hygge&quot; but Norwegian style
-                          </li>
-                        </ul>
-                      </div>
-
-                      <div className="bg-white/15 rounded-lg p-6">
-                        <h3 className="text-lg font-semibold text-white mb-3">
-                          ⏱️ Learning Time:
-                        </h3>
-                        <ul className="text-white/80 space-y-1 text-sm text-left">
-                          <li>
-                            • <strong>Basic fluency:</strong> 7-9 months (daily
-                            study)
-                          </li>
-                          <li>
-                            • <strong>Full fluency:</strong> 2-3 years
-                          </li>
-                          <li>
-                            • <strong>Most similar to Swedish</strong> - learn
-                            one, understand the other
-                          </li>
-                        </ul>
-                      </div>
-                    </>
-                  )}
-
-                  {country.key === "finnish" && (
-                    <>
-                      <div className="bg-white/15 rounded-lg pt-2 pb-6 px-6 md:p-6">
-                        <h3 className="text-lg font-semibold text-white mb-3">
-                          🎯 Fun Facts:
-                        </h3>
-                        <ul className="text-white/80 space-y-2 text-sm text-left">
-                          <li>
-                            • <strong>15 grammatical cases</strong> (English has
-                            3, German has 4)
-                          </li>
-                          <li>
-                            • <strong>Vowel harmony</strong> - vowels must
-                            &quot;agree&quot; with each other
-                          </li>
-                          <li>
-                            • <strong>Longest word:</strong>{" "}
-                            &quot;lentokonesuihkuturbiinimoottoriapumekaanikkoaliupseerioppilas&quot;
-                          </li>
-                        </ul>
-                      </div>
-
-                      <div className="bg-white/15 rounded-lg p-6">
-                        <h3 className="text-lg font-semibold text-white mb-3">
-                          ⏱️ Learning Time:
-                        </h3>
-                        <ul className="text-white/80 space-y-1 text-sm text-left">
-                          <li>
-                            • <strong>Basic fluency:</strong> 12-18 months
-                            (daily study)
-                          </li>
-                          <li>
-                            • <strong>Full fluency:</strong> 4-6 years
-                          </li>
-                          <li>
-                            • <strong>&quot;Most challenging&quot;</strong> -
-                            different language family (Uralic)
-                          </li>
-                        </ul>
-                      </div>
-                    </>
-                  )}
+                  <div className="bg-white/15 rounded-lg p-6">
+                    <h3 className="text-lg font-semibold text-white mb-3">
+                      ⏱️ Learning Time:
+                    </h3>
+                    <ul className="text-white/80 space-y-1 text-sm text-left">
+                      {countryInfo[
+                        country.key as keyof typeof countryInfo
+                      ].learningTime.map((time, index) => (
+                        <li key={index}>
+                          •{" "}
+                          <span className="font-semibold text-white">
+                            {time.split(": ")[0]}:
+                          </span>{" "}
+                          {time.split(": ")[1]}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </CardContent>
               </Card>
             </div>

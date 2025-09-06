@@ -98,3 +98,54 @@ export const dailyExpressions = {
     },
   ],
 };
+
+export const countryInfo = {
+  swedish: {
+    funFacts: [
+      "Lagom - unique word meaning 'just the right amount'",
+      "Melodic intonation - sounds like singing with pitch accents",
+      "Compound words - 'sjukhus' = sick + house = hospital",
+    ],
+    learningTime: [
+      "Basic fluency: 6-8 months (daily study)",
+      "Full fluency: 2-3 years",
+      "Difficulty: Easiest for English speakers among Nordic languages",
+    ],
+  },
+  danish: {
+    funFacts: [
+      "Hygge - famous concept of cozy contentment",
+      "Soft pronunciation - they 'swallow' many consonants",
+      "Stød - unique glottal stop (sounds like clearing throat)",
+    ],
+    learningTime: [
+      "Basic fluency: 8-10 months (daily study)",
+      "Full fluency: 2.5-3.5 years",
+      "Difficulty: Hardest pronunciation among Nordic languages",
+    ],
+  },
+  norwegian: {
+    funFacts: [
+      "Two written standards - Bokmål and Nynorsk",
+      "Clear pronunciation - most letters are pronounced",
+      "Koselig - similar to Danish 'hygge' but Norwegian style",
+    ],
+    learningTime: [
+      "Basic fluency: 7-9 months (daily study)",
+      "Full fluency: 2-3 years",
+      "Most similar to Swedish: learn one, understand the other",
+    ],
+  },
+  finnish: {
+    funFacts: [
+      "15 grammatical cases (English has 3, German has 4)",
+      "Vowel harmony - vowels must 'agree' with each other",
+      "No future tense - they use present tense for future",
+    ],
+    learningTime: [
+      "Basic fluency: 12-18 months (daily study)",
+      "Full fluency: 4-6 years",
+      "Most challenging: different language family (Uralic)",
+    ],
+  },
+};
