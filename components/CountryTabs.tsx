@@ -2,36 +2,50 @@
 
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-
-import { useState } from "react";
-
+import { useReducer, useState } from "react";
 import { useLanguageStore } from "@/lib/store";
 import { Expression } from "@/types";
 
 const countries = [
-  { key: "swedish", name: "Swedish", flag: "", color: "bg-blue-500" },
-  { key: "danish", name: "Danish", flag: "", color: "bg-red-500" },
-  { key: "norwegian", name: "Norwegian", flag: "", color: "bg-green-500" },
-  { key: "finnish", name: "Finnish", flag: "", color: "bg-yellow-500" },
+  { key: "swedish", name: "Swedish", flag: "🇸🇪", color: "bg-blue-500" },
+  { key: "danish", name: "Danish", flag: "🇩🇰", color: "bg-red-500" },
+  { key: "norwegian", name: "Norwegian", flag: "🇳🇴", color: "bg-green-500" },
+  { key: "finnish", name: "Finnish", flag: "🇫🇮", color: "bg-yellow-500" },
 ];
 
 interface CountryTabsProps {
   expressions: Record<string, Expression[]>;
 }
 
+interface FlipState {
+  [key: string]: boolean;
+}
+
+interface FlipAction {
+  type: "FLIP" | "RESET";
+  country: string;
+}
+
+function flipReducer(state: FlipState, action: FlipAction): FlipState {
+  return { ...state, [action.country]: action.type === "FLIP" };
+}
+
 export function CountryTabs({ expressions }: CountryTabsProps) {
   const [activeTab, setActiveTab] = useState("swedish");
-
-  const [isSwedishFlipped, setIsSwedishFlipped] = useState(false);
-  const [isDanishFlipped, setIsDanishFlipped] = useState(false);
-  const [isNorwegianFlipped, setIsNorwegianFlipped] = useState(false);
-  const [isFinnishFlipped, setIsFinnishFlipped] = useState(false);
-
+  const [flipState, dispatch] = useReducer(flipReducer, {});
   const setActiveLanguage = useLanguageStore.getState().setActiveLanguage;
 
   const handleTabChange = (value: string) => {
     setActiveTab(value);
     setActiveLanguage(value);
+  };
+
+  const handleFlip = (country: string) => {
+    dispatch({ type: "FLIP", country });
+  };
+
+  const handleReset = (country: string) => {
+    dispatch({ type: "RESET", country });
   };
 
   return (
@@ -44,7 +58,7 @@ export function CountryTabs({ expressions }: CountryTabsProps) {
             className="flex items-center gap-2 text-sm font-medium text-white/80 data-[state=active]:bg-white/30 data-[state=active]:text-white transition-all duration-200 hover:!bg-white/40 cursor-pointer"
           >
             <span className="text-lg">{country.flag}</span>
-            {country.name}
+            {/* {country.name} */}
           </TabsTrigger>
         ))}
       </TabsList>
@@ -54,24 +68,16 @@ export function CountryTabs({ expressions }: CountryTabsProps) {
           <div className="relative">
             <div
               className={`transition-opacity duration-300 ${
-                (country.key === "swedish" && isSwedishFlipped) ||
-                (country.key === "danish" && isDanishFlipped) ||
-                (country.key === "norwegian" && isNorwegianFlipped) ||
-                (country.key === "finnish" && isFinnishFlipped)
+                flipState[country.key]
                   ? "opacity-0 pointer-events-none absolute inset-0"
                   : "opacity-100"
               }`}
             >
               <Card
                 className="shadow-2xl border-0 bg-white/10 backdrop-blur-md border border-white/20 h-[500px] md:h-[600px] cursor-pointer hover:bg-white/15 transition-all duration-200 pt-0 pb-6 md:py-6 flex flex-col"
-                onClick={() => {
-                  if (country.key === "swedish") setIsSwedishFlipped(true);
-                  if (country.key === "danish") setIsDanishFlipped(true);
-                  if (country.key === "norwegian") setIsNorwegianFlipped(true);
-                  if (country.key === "finnish") setIsFinnishFlipped(true);
-                }}
+                onClick={() => handleFlip(country.key)}
               >
-                <CardHeader className="text-center pb-2 md:pb-8">
+                <CardHeader className="text-center pb-2 md:pb-4">
                   <div className="flex items-center justify-center gap-4 mb-4 hidden md:flex">
                     <span className="text-4xl">{country.flag}</span>
                     <CardTitle className="text-2xl md:text-3xl font-bold text-white drop-shadow-md">
@@ -105,7 +111,7 @@ export function CountryTabs({ expressions }: CountryTabsProps) {
                       </div>
 
                       <div className="text-center p-6 bg-white/10 rounded-xl backdrop-blur-sm">
-                        <p className="text-base text-white font-medium drop-shadow-md">
+                        <p className="text-base md:text-lg text-white font-medium drop-shadow-md">
                           <span className="font-bold">Translation:</span>{" "}
                           {expressions[country.key][0].translation}
                         </p>
@@ -127,28 +133,20 @@ export function CountryTabs({ expressions }: CountryTabsProps) {
 
             <div
               className={`transition-opacity duration-300 ${
-                (country.key === "swedish" && isSwedishFlipped) ||
-                (country.key === "danish" && isDanishFlipped) ||
-                (country.key === "norwegian" && isNorwegianFlipped) ||
-                (country.key === "finnish" && isFinnishFlipped)
+                flipState[country.key]
                   ? "opacity-100"
                   : "opacity-0 pointer-events-none absolute inset-0"
               }`}
             >
               <Card
                 className="shadow-2xl border-0 bg-white/10 backdrop-blur-md border border-white/20 h-[500px] md:h-[600px] cursor-pointer hover:bg-white/15 transition-all duration-200 pt-0 pb-6 md:py-6 flex flex-col"
-                onClick={() => {
-                  if (country.key === "swedish") setIsSwedishFlipped(false);
-                  if (country.key === "danish") setIsDanishFlipped(false);
-                  if (country.key === "norwegian") setIsNorwegianFlipped(false);
-                  if (country.key === "finnish") setIsFinnishFlipped(false);
-                }}
+                onClick={() => handleReset(country.key)}
               >
-                <CardHeader className="text-center pb-2 md:pb-8">
+                <CardHeader className="text-center pb-2 md:pb-4">
                   <div className="flex items-center justify-center gap-4 mb-4 hidden md:flex">
                     <span className="text-4xl">{country.flag}</span>
                     <CardTitle className="text-2xl md:text-3xl font-bold text-white drop-shadow-md">
-                      About {country.name} Language
+                      About the {country.name} Language
                     </CardTitle>
                   </div>
                 </CardHeader>

@@ -3,8 +3,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { useLanguageStore } from "@/lib/store";
 import { WeatherData } from "@/types";
-
-// Add this interface:
 interface WeatherWidgetProps {
   weatherData: Record<string, WeatherData | null> | null;
   weatherError: string | null;
