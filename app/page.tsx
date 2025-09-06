@@ -91,7 +91,7 @@ export default async function Home() {
             </p>
             <Badge
               variant="outline"
-              className="text-sm px-4 py-2 border-white/30 text-white bg-white/10 backdrop-blur-sm"
+              className="text-sm px-3 py-1.5 border-white/30 text-white bg-white/10 backdrop-blur-sm"
             >
               {todayDate}
             </Badge>

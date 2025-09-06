@@ -53,7 +53,7 @@ export function CountryTabs({ expressions }: CountryTabsProps) {
 
   return (
     <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full">
-      <TabsList className="grid w-full grid-cols-4 mb-8 h-14 p-1 bg-white/20 backdrop-blur-md border border-white/20">
+      <TabsList className="grid w-full grid-cols-4 mb-2 h-14 p-1 bg-white/20 backdrop-blur-md border border-white/20">
         {countries.map((country) => (
           <TabsTrigger
             key={country.key}
@@ -80,7 +80,7 @@ export function CountryTabs({ expressions }: CountryTabsProps) {
               }`}
             >
               <Card
-                className="shadow-2xl border-0 bg-white/10 backdrop-blur-md border border-white/20 min-h-[400px] md:min-h-[600px] cursor-pointer hover:bg-white/15 transition-all duration-200 pt-0 pb-6 md:py-6"
+                className="shadow-2xl border-0 bg-white/10 backdrop-blur-md border border-white/20 h-[500px] md:h-[600px] cursor-pointer hover:bg-white/15 transition-all duration-200 pt-0 pb-6 md:py-6 flex flex-col"
                 onClick={() => {
                   if (country.key === "swedish") setIsSwedishFlipped(true);
                   if (country.key === "danish") setIsDanishFlipped(true);
@@ -121,8 +121,8 @@ export function CountryTabs({ expressions }: CountryTabsProps) {
                         </p>
                       </div>
 
-                      <div className="text-center p-6 border-l-4 border-white/50 bg-white/10 rounded-r-xl backdrop-blur-sm">
-                        <p className="text-xl text-white font-medium drop-shadow-md">
+                      <div className="text-center p-6 bg-white/10 rounded-xl backdrop-blur-sm">
+                        <p className="text-base text-white font-medium drop-shadow-md">
                           <span className="font-bold">Translation:</span>{" "}
                           {expressions[country.key][0].translation}
                         </p>
@@ -153,7 +153,7 @@ export function CountryTabs({ expressions }: CountryTabsProps) {
               }`}
             >
               <Card
-                className="shadow-2xl border-0 bg-white/10 backdrop-blur-md border border-white/20 min-h-[400px] md:min-h-[600px] cursor-pointer hover:bg-white/15 transition-all duration-200 pt-0 pb-6 md:py-6"
+                className="shadow-2xl border-0 bg-white/10 backdrop-blur-md border border-white/20 h-[500px] md:h-[600px] cursor-pointer hover:bg-white/15 transition-all duration-200 pt-0 pb-6 md:py-6 flex flex-col"
                 onClick={() => {
                   if (country.key === "swedish") setIsSwedishFlipped(false);
                   if (country.key === "danish") setIsDanishFlipped(false);
