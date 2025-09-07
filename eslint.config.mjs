@@ -16,6 +16,8 @@ const eslintConfig = [
       "lib/generated/**/*",
       "prisma/migrations/**/*",
       "node_modules/**/*",
+      "**/generated/**/*",
+      "**/prisma/runtime/**/*",
     ],
   },
 ];
