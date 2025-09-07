@@ -1,13 +1,14 @@
 import { CountryTabs } from "@/components/CountryTabs";
-import { dailyExpressions } from "@/lib/api";
+
 import { Badge } from "@/components/ui/badge";
 import { WeatherWidget } from "@/components/WeatherWidget";
+import { getDailyExpressions, getCountryInfo } from "@/lib/api";
 import { getWeatherData } from "@/lib/weather";
 
 export default async function Home() {
-  const expressions = dailyExpressions;
   const { weatherData, weatherError } = await getWeatherData();
-
+  const expressions = await getDailyExpressions();
+  const countryInfo = await getCountryInfo();
   const todayDate = new Date().toLocaleDateString("en-US", {
     weekday: "long",
     year: "numeric",
@@ -68,7 +69,7 @@ export default async function Home() {
         </div>
 
         <div className="max-w-5xl mx-auto">
-          <CountryTabs expressions={expressions} />
+          <CountryTabs expressions={expressions} countryInfo={countryInfo} />
         </div>
       </main>
     </div>

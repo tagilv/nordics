@@ -12,7 +12,7 @@ export async function getWeatherData() {
         `${
           process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"
         }/api/weather?city=${city}`,
-        { next: { revalidate: 3600 } }
+        { next: { revalidate: 7200 } }
       );
 
       if (response.ok) {

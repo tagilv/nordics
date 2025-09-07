@@ -5,7 +5,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useReducer, useState } from "react";
 import { useLanguageStore } from "@/lib/store";
 import { Expression } from "@/types";
-import { countryInfo } from "@/lib/api";
 
 const countries = [
   { key: "swedish", name: "Swedish", flag: "🇸🇪", color: "bg-blue-500" },
@@ -16,6 +15,7 @@ const countries = [
 
 interface CountryTabsProps {
   expressions: Record<string, Expression[]>;
+  countryInfo: Record<string, { funFacts: string[]; learningTime: string[] }>;
 }
 
 interface FlipState {
@@ -31,7 +31,7 @@ function flipReducer(state: FlipState, action: FlipAction): FlipState {
   return { ...state, [action.country]: action.type === "FLIP" };
 }
 
-export function CountryTabs({ expressions }: CountryTabsProps) {
+export function CountryTabs({ expressions, countryInfo }: CountryTabsProps) {
   const [activeTab, setActiveTab] = useState("swedish");
   const [flipState, dispatch] = useReducer(flipReducer, {});
   const setActiveLanguage = useLanguageStore.getState().setActiveLanguage;
@@ -75,7 +75,7 @@ export function CountryTabs({ expressions }: CountryTabsProps) {
               }`}
             >
               <Card
-                className="shadow-2xl border-0 bg-white/10 backdrop-blur-md border border-white/20 h-[500px] md:min-h-[600px] cursor-pointer hover:bg-white/15 transition-all duration-200 pt-0 pb-6 md:py-6 flex flex-col"
+                className="shadow-2xl border-0 bg-white/10 backdrop-blur-md border border-white/20 h-[450px] md:min-h-[600px] cursor-pointer hover:bg-white/15 transition-all duration-200 pt-0 pb-6 md:py-6 flex flex-col"
                 onClick={() => handleFlip(country.key)}
               >
                 <CardHeader className="text-center pb-2 md:pb-4">
@@ -138,7 +138,7 @@ export function CountryTabs({ expressions }: CountryTabsProps) {
               }`}
             >
               <Card
-                className="shadow-2xl border-0 bg-white/10 backdrop-blur-md border border-white/20 h-[500px] md:h-[600px] cursor-pointer hover:bg-white/15 transition-all duration-200 pt-0 pb-6 md:py-6 flex flex-col"
+                className="shadow-2xl border-0 bg-white/10 backdrop-blur-md border border-white/20 h-[450px] md:h-[600px] cursor-pointer hover:bg-white/15 transition-all duration-200 pt-0 pb-6 md:py-6 flex flex-col"
                 onClick={() => handleReset(country.key)}
               >
                 <CardHeader className="text-center pb-2 md:pb-4">
