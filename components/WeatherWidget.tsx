@@ -12,9 +12,14 @@ export function WeatherWidget({
   weatherData,
   weatherError,
 }: WeatherWidgetProps) {
+  console.log("🔍 DEBUG - weatherError:", weatherError);
+  console.log("🔍 DEBUG - weatherData:", weatherData);
+
   const activeLanguage = useLanguageStore((state) => state.activeLanguage);
 
   const currentWeather = weatherData?.[activeLanguage];
+
+  console.log("🔍 DEBUG - currentWeather:", currentWeather);
 
   const cityNames = {
     swedish: "Stockholm",
@@ -59,6 +64,7 @@ export function WeatherWidget({
       <CardContent className="px-1 -my-3 text-center">
         <div className="text-xs text-white/80 font-bold mb-1">
           {currentCity}
+          {currentWeather.description}
         </div>{" "}
         <div className="flex items-center justify-center gap-1">
           <span className="text-sm">{currentWeather.icon}</span>
