@@ -27,7 +27,10 @@ export function WeatherWidget({
 
   if (weatherError) {
     return (
-      <Card className="w-20 md:w-24 bg-white/10 backdrop-blur-md border border-white/20 shadow-lg transition-all duration-200">
+      <Card
+        className="w-20 md:w-24 bg-white/10 backdrop-blur-md border border-white/20 shadow-lg transition-all duration-200 "
+        suppressHydrationWarning
+      >
         <CardContent className="px-1  -my-3 text-center">
           <div className="text-xs text-white/70">Weather unavailable</div>
         </CardContent>
@@ -37,7 +40,10 @@ export function WeatherWidget({
 
   if (!currentWeather) {
     return (
-      <Card className="w-20 md:w-24 bg-white/10 backdrop-blur-md border border-white/20 shadow-lg transition-all duration-200">
+      <Card
+        className="w-20 md:w-24 bg-white/10 backdrop-blur-md border border-white/20 shadow-lg transition-all duration-200"
+        suppressHydrationWarning
+      >
         <CardContent className="px-1 -my-3 text-center">
           <div className="text-xs text-white/70">Loading...</div>
         </CardContent>
@@ -46,7 +52,10 @@ export function WeatherWidget({
   }
 
   return (
-    <Card className="w-20 md:w-24 bg-white/10 backdrop-blur-md border border-white/20 shadow-lg transition-all duration-200">
+    <Card
+      className="w-20 md:w-24 bg-white/10 backdrop-blur-md border border-white/20 shadow-lg transition-all duration-200"
+      suppressHydrationWarning
+    >
       <CardContent className="px-1 -my-3 text-center">
         <div className="text-xs text-white/80 font-bold mb-1">
           {currentCity}
