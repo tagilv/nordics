@@ -36,7 +36,7 @@ async function fetchWeatherData(city: string): Promise<WeatherData | null> {
     }
 
     const locationResponse = await fetch(
-      `http://dataservice.accuweather.com/locations/v1/cities/search?apikey=${apiKey}&q=${city}&language=en-us`
+      `https://dataservice.accuweather.com/locations/v1/cities/search?apikey=${apiKey}&q=${city}&language=en-us`
     );
 
     if (!locationResponse.ok) {
@@ -52,7 +52,7 @@ async function fetchWeatherData(city: string): Promise<WeatherData | null> {
     const locationKey = locationData[0].Key;
 
     const weatherResponse = await fetch(
-      `http://dataservice.accuweather.com/currentconditions/v1/${locationKey}?apikey=${apiKey}&language=en-us&details=true`
+      `https://dataservice.accuweather.com/currentconditions/v1/${locationKey}?apikey=${apiKey}&language=en-us&details=true`
     );
 
     if (!weatherResponse.ok) {
