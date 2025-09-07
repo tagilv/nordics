@@ -64,7 +64,6 @@ export function WeatherWidget({
       <CardContent className="px-1 -my-3 text-center">
         <div className="text-xs text-white/80 font-bold mb-1">
           {currentCity}
-          {currentWeather.description}
         </div>{" "}
         <div className="flex items-center justify-center gap-1">
           <span className="text-sm">{currentWeather.icon}</span>
