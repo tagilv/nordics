@@ -12,14 +12,9 @@ export function WeatherWidget({
   weatherData,
   weatherError,
 }: WeatherWidgetProps) {
-  console.log("🔍 DEBUG - weatherError:", weatherError);
-  console.log("🔍 DEBUG - weatherData:", weatherData);
-
   const activeLanguage = useLanguageStore((state) => state.activeLanguage);
 
   const currentWeather = weatherData?.[activeLanguage];
-
-  console.log("🔍 DEBUG - currentWeather:", currentWeather);
 
   const cityNames = {
     swedish: "Stockholm",

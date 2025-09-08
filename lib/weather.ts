@@ -23,7 +23,6 @@ export async function getWeatherData() {
 
         if (response.ok) {
           const data = await response.json();
-          console.log(`✅ ${city} weather:`, data);
           results.push([lang, data]);
         } else {
           console.error(

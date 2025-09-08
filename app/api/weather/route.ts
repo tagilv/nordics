@@ -31,19 +31,14 @@ const cityMapping: Record<string, string> = {
 async function fetchWeatherData(city: string): Promise<WeatherData | null> {
   try {
     const apiKey = process.env.ACCUWEATHER_API_KEY;
-    console.log("API Key exists:", !!apiKey);
-    console.log("API Key length:", apiKey?.length);
 
     if (!apiKey) {
       throw new Error("AccuWeather API key is not set");
     }
 
-    console.log(`Fetching location for ${city}...`);
     const locationResponse = await fetch(
       `https://dataservice.accuweather.com/locations/v1/cities/search?apikey=${apiKey}&q=${city}&language=en-us`
     );
-
-    console.log(`Location response status: ${locationResponse.status}`);
 
     if (!locationResponse.ok) {
       const errorText = await locationResponse.text();
@@ -54,21 +49,16 @@ async function fetchWeatherData(city: string): Promise<WeatherData | null> {
     }
 
     const locationData: AccuWeatherLocation[] = await locationResponse.json();
-    console.log(`Location data received:`, locationData.length, "results");
 
     if (!locationData || locationData.length === 0) {
       throw new Error("No location data found");
     }
 
     const locationKey = locationData[0].Key;
-    console.log(`Location key: ${locationKey}`);
 
-    console.log(`Fetching weather for ${city}...`);
     const weatherResponse = await fetch(
       `https://dataservice.accuweather.com/currentconditions/v1/${locationKey}?apikey=${apiKey}&language=en-us&details=true`
     );
-
-    console.log(`Weather response status: ${weatherResponse.status}`);
 
     if (!weatherResponse.ok) {
       const errorText = await weatherResponse.text();
@@ -79,7 +69,6 @@ async function fetchWeatherData(city: string): Promise<WeatherData | null> {
     }
 
     const weatherData: AccuWeatherCurrent[] = await weatherResponse.json();
-    console.log(`Weather data received:`, weatherData.length, "results");
 
     const current = weatherData[0];
 
