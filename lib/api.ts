@@ -4,13 +4,26 @@ import prisma from "./db";
 export async function getDailyExpressions() {
   const countries = ["swedish", "danish", "norwegian", "finnish"];
 
+  const today = new Date().toISOString().split("T")[0];
+
   const expressions = await Promise.all(
-    countries.map((country) =>
-      prisma.expression.findFirst({
-        where: { country },
-        orderBy: { date: "desc" },
-      })
-    )
+    countries.map(async (country) => {
+      let expression = await prisma.expression.findFirst({
+        where: {
+          country,
+          date: today,
+        },
+      });
+
+      if (!expression) {
+        expression = await prisma.expression.findFirst({
+          where: { country },
+          orderBy: { date: "desc" },
+        });
+      }
+
+      return expression;
+    })
   );
 
   return expressions.reduce((acc, expr) => {

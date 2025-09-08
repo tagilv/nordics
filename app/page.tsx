@@ -1,9 +1,10 @@
 import { CountryTabs } from "@/components/CountryTabs";
-
 import { Badge } from "@/components/ui/badge";
 import { WeatherWidget } from "@/components/WeatherWidget";
 import { getDailyExpressions, getCountryInfo } from "@/lib/api";
 import { getWeatherData } from "@/lib/weather";
+
+export const revalidate = 0;
 
 export default async function Home() {
   const { weatherData, weatherError } = await getWeatherData();
