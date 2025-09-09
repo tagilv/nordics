@@ -87,7 +87,7 @@ export function CountryTabs({ expressions, countryInfo }: CountryTabsProps) {
               }`}
             >
               <Card
-                className="shadow-2xl border-0 bg-white/10 backdrop-blur-md border border-white/20 h-[450px] md:min-h-[600px] cursor-pointer hover:bg-white/15 transition-all duration-200 pt-0 pb-6 md:py-6 flex flex-col"
+                className="shadow-2xl border-0 bg-white/10 backdrop-blur-md border border-white/20 h-[480px] md:min-h-[600px] cursor-pointer hover:bg-white/15 transition-all duration-200 pt-0 pb-6 md:py-6 flex flex-col"
                 onClick={() => handleFlip(country.key)}
               >
                 <CardHeader className="text-center pb-2 md:pb-4">
@@ -126,9 +126,6 @@ export function CountryTabs({ expressions, countryInfo }: CountryTabsProps) {
                           <span className="text-white/60 mr-2">===</span>
                           {expressions[country.key][0].translation}
                         </p>
-                      </div>
-                      <div className="text-center text-base text-white/70 font-light drop-shadow-sm">
-                        <p>Return tomorrow for another Nordic treasure ✨</p>
                       </div>
                     </>
                   ) : (
