@@ -2,7 +2,7 @@
 
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useReducer, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { useLanguageStore } from "@/lib/store";
 import { Expression } from "@/types";
 
@@ -32,12 +32,25 @@ function flipReducer(state: FlipState, action: FlipAction): FlipState {
 }
 
 export function CountryTabs({ expressions, countryInfo }: CountryTabsProps) {
-  const [activeTab, setActiveTab] = useState("swedish");
+  const activeTab = useLanguageStore((state) => state.activeLanguage);
+  const [isHydrated, setIsHydrated] = useState(false);
+
   const [flipState, dispatch] = useReducer(flipReducer, {});
   const setActiveLanguage = useLanguageStore.getState().setActiveLanguage;
 
+  useEffect(() => {
+    setIsHydrated(true);
+  }, []);
+
+  if (!isHydrated) {
+    return (
+      <div className="flex justify-center items-center min-h-[400px]">
+        <div className="text-white/70">Loading...</div>
+      </div>
+    );
+  }
+
   const handleTabChange = (value: string) => {
-    setActiveTab(value);
     setActiveLanguage(value);
   };
 
@@ -59,7 +72,6 @@ export function CountryTabs({ expressions, countryInfo }: CountryTabsProps) {
             className="flex items-center gap-2 text-sm font-medium text-white/80 data-[state=active]:bg-white/30 data-[state=active]:text-white transition-all duration-200 hover:!bg-white/40 cursor-pointer"
           >
             <span className="text-lg">{country.flag}</span>
-            {/* {country.name} */}
           </TabsTrigger>
         ))}
       </TabsList>

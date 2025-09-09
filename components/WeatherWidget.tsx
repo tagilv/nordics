@@ -3,6 +3,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { useLanguageStore } from "@/lib/store";
 import { WeatherData } from "@/types";
+import { useEffect, useState } from "react";
 interface WeatherWidgetProps {
   weatherData: Record<string, WeatherData | null> | null;
   weatherError: string | null;
@@ -13,8 +14,23 @@ export function WeatherWidget({
   weatherError,
 }: WeatherWidgetProps) {
   const activeLanguage = useLanguageStore((state) => state.activeLanguage);
+  const [isHydrated, setIsHydrated] = useState(false);
+
+  useEffect(() => {
+    setIsHydrated(true);
+  }, []);
 
   const currentWeather = weatherData?.[activeLanguage];
+
+  if (!isHydrated) {
+    return (
+      <Card className="w-20 md:w-24 bg-white/10 backdrop-blur-md border border-white/20 shadow-lg">
+        <CardContent className="px-1 -my-3 text-center">
+          <div className="text-xs text-white/70">Loading...</div>
+        </CardContent>
+      </Card>
+    );
+  }
 
   const cityNames = {
     swedish: "Stockholm",
