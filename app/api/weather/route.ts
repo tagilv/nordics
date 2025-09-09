@@ -29,13 +29,8 @@ async function fetchWeatherData(city: string): Promise<WeatherData | null> {
       throw new Error("WeatherAPI key is not set");
     }
 
-    const cityName = cityNames[city];
-    if (!cityName) {
-      throw new Error(`Unknown city: ${city}`);
-    }
-
     const response = await fetch(
-      `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${cityName}&aqi=no`
+      `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}&aqi=no`
     );
 
     if (!response.ok) {
