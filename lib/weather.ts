@@ -36,10 +36,6 @@ export async function getWeatherData() {
         console.error(`❌ ${city} error:`, error);
         results.push([lang, null]);
       }
-
-      if (lang !== "finnish") {
-        await new Promise((resolve) => setTimeout(resolve, 2000));
-      }
     }
 
     return { weatherData: Object.fromEntries(results), weatherError: null };
