@@ -1,4 +1,4 @@
-import { Expression } from "@/types";
+import { Expression, CountryInfo } from "@/types";
 import prisma from "./db";
 
 export async function getDailyExpressions() {
@@ -39,9 +39,21 @@ export async function getCountryInfo() {
 
   return countryInfo.reduce((acc, info) => {
     acc[info.country] = {
-      funFacts: info.funFacts,
-      learningTime: info.learningTime,
+      funFacts: info.funFacts.map((fact) => {
+        const [title, description] = fact.split(" - ");
+        return {
+          title: title || "",
+          description: description || "",
+        };
+      }),
+      learningTime: info.learningTime.map((time) => {
+        const [level, duration] = time.split(": ");
+        return {
+          level: level || "",
+          duration: duration || "",
+        };
+      }),
     };
     return acc;
-  }, {} as Record<string, { funFacts: string[]; learningTime: string[] }>);
+  }, {} as Record<string, CountryInfo>);
 }

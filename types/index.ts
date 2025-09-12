@@ -13,3 +13,18 @@ export interface WeatherData {
   description: string;
   icon: string;
 }
+
+export interface FunFact {
+  title: string;
+  description: string;
+}
+
+export interface LearningTime {
+  level: string;
+  duration: string;
+}
+
+export interface CountryInfo {
+  funFacts: FunFact[];
+  learningTime: LearningTime[];
+}

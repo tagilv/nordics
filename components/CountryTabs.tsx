@@ -4,7 +4,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useEffect, useReducer, useState } from "react";
 import { useLanguageStore } from "@/lib/store";
-import { Expression } from "@/types";
+import { Expression, CountryInfo } from "@/types";
 
 const countries = [
   { key: "swedish", name: "Swedish", flag: "🇸🇪", color: "bg-blue-500" },
@@ -15,7 +15,7 @@ const countries = [
 
 interface CountryTabsProps {
   expressions: Record<string, Expression[]>;
-  countryInfo: Record<string, { funFacts: string[]; learningTime: string[] }>;
+  countryInfo: Record<string, CountryInfo>;
 }
 
 interface FlipState {
@@ -162,18 +162,25 @@ export function CountryTabs({ expressions, countryInfo }: CountryTabsProps) {
                 <CardContent className="space-y-4 md:space-y-6">
                   <div className="bg-white/15 rounded-lg pt-2 pb-6 px-6 md:p-6">
                     <h3 className="text-lg font-semibold text-white mb-3">
-                      🎯Fun Facts:
+                      🎯Fun Facts
                     </h3>
                     <ul className="text-white/80 space-y-2 text-sm text-left">
                       {countryInfo[
                         country.key as keyof typeof countryInfo
                       ].funFacts.map((fact, index) => (
-                        <li key={index}>
-                          •{" "}
-                          <span className="font-semibold text-white">
-                            {fact.split(" - ")[0]}
-                          </span>{" "}
-                          - {fact.split(" - ")[1]}
+                        <li key={index} className="flex items-start">
+                          <span className="text-white mr-2 mt-0.5">•</span>
+                          <span>
+                            <span className="font-semibold text-white">
+                              {fact.title}
+                            </span>
+                            {fact.description && (
+                              <span className="text-white/80">
+                                {" "}
+                                - {fact.description}
+                              </span>
+                            )}
+                          </span>
                         </li>
                       ))}
                     </ul>
@@ -181,18 +188,22 @@ export function CountryTabs({ expressions, countryInfo }: CountryTabsProps) {
 
                   <div className="bg-white/15 rounded-lg p-6">
                     <h3 className="text-lg font-semibold text-white mb-3">
-                      ⏱️ Learning Time:
+                      🌍 Language Journey
                     </h3>
                     <ul className="text-white/80 space-y-1 text-sm text-left">
                       {countryInfo[
                         country.key as keyof typeof countryInfo
                       ].learningTime.map((time, index) => (
-                        <li key={index}>
-                          •{" "}
-                          <span className="font-semibold text-white">
-                            {time.split(": ")[0]}:
-                          </span>{" "}
-                          {time.split(": ")[1]}
+                        <li key={index} className="flex items-start">
+                          <span className="text-white mr-2 mt-0.5">•</span>
+                          <span>
+                            <span className="font-semibold text-white">
+                              {time.level}:
+                            </span>
+                            <span className="text-white/80 ml-1">
+                              {time.duration}
+                            </span>
+                          </span>
                         </li>
                       ))}
                     </ul>
