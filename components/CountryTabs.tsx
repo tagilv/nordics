@@ -123,7 +123,7 @@ export function CountryTabs({ expressions, countryInfo }: CountryTabsProps) {
 
                       <div className="text-center p-6 bg-white/10 rounded-xl backdrop-blur-sm">
                         <p className="text-base md:text-lg text-white font-medium drop-shadow-md">
-                          <span className="text-white/60 mr-2">===</span>
+                          <span className="text-white/60 mr-2">→</span>
                           {expressions[country.key][0].translation}
                         </p>
                       </div>
